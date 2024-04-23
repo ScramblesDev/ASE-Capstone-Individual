@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'auth.dart'; // Ensure the AuthService is imported
-import 'homepage.dart'; // Import the homepage for navigation after login
+import 'auth.dart';
+import 'homepage.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -21,12 +21,9 @@ class _LoginScreenState extends State<LoginScreen> {
         final user =
             await _authService.signInWithEmailAndPassword(_email!, _password!);
         if (user != null) {
-          // Assuming you now have the user, navigate and pass the userId
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    HomePage(userId: user.uid)), // Pass userId here
+            MaterialPageRoute(builder: (context) => HomePage(userId: user.uid)),
           );
         }
       } catch (e) {

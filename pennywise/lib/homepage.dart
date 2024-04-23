@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:math';
-import 'auth.dart'; // Assuming AuthService is correctly set up and includes necessary methods
+import 'auth.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class HomePage extends StatefulWidget {
@@ -42,7 +42,8 @@ class SimpleBarChart extends StatelessWidget {
     return [
       charts.Series<BudgetBarChartModel, String>(
         id: 'Budget',
-        colorFn: (_, __) => charts.Color.fromHex(code: '#3EB489'), // Mint green
+        //pls work
+        colorFn: (_, __) => charts.Color.fromHex(code: '#3EB489'),
         domainFn: (BudgetBarChartModel sales, _) => sales.budgetName,
         measureFn: (BudgetBarChartModel sales, _) => sales.percentage,
         data: data,
@@ -59,11 +60,10 @@ class BudgetBarChartModel {
 }
 
 class _HomePageState extends State<HomePage> {
-  final AuthService _authService =
-      AuthService(); // Assuming AuthService includes necessary methods
+  final AuthService _authService = AuthService();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   String insightMessage = "Loading insight...";
-  int overallAmount = 0; // To hold the user's overall amount
+  int overallAmount = 0;
   List<BudgetBarChartModel> budgetItems = [];
 
   @override
@@ -96,8 +96,7 @@ class _HomePageState extends State<HomePage> {
           int goal = item['budget_goal'];
           double percentage =
               overallAmount > 0 ? (overallAmount / goal) * 100 : 0;
-          percentage =
-              min(percentage, 100); // Ensure percentage does not exceed 100
+          percentage = min(percentage, 100);
           return BudgetBarChartModel(item['budget_name'], percentage);
         }).toList();
       });
@@ -166,9 +165,8 @@ class _HomePageState extends State<HomePage> {
                 await _authService.updateOverallAmount(
                     widget.userId, newAmount);
                 Navigator.pop(context);
-                // Fetch user data and budget items again after updating the amount
-                await fetchUserData(); // Updates overallAmount and calls updateFinancialInsight
-                await fetchBudgetItems(); // Updates budgetItems which in turn updates the chart
+                await fetchUserData();
+                await fetchBudgetItems();
               },
               child: Text('OK'),
             ),
@@ -213,9 +211,9 @@ class _HomePageState extends State<HomePage> {
                 await _authService.addBudgetItem(
                     widget.userId, budgetName, budgetGoal);
                 Navigator.pop(context);
-                await fetchUserData(); // Refresh overallAmount
-                await fetchBudgetItems(); // Refresh budget items list and update the chart
-                updateFinancialInsight(); // Optionally update insights here too
+                await fetchUserData();
+                await fetchBudgetItems();
+                updateFinancialInsight();
               },
               child: Text('Add'),
             ),
@@ -272,7 +270,7 @@ class _HomePageState extends State<HomePage> {
                     color: Color(0xFF3EB489))),
             SizedBox(height: 30),
             SizedBox(
-              height: 250, // Adjust this value to change the chart size
+              height: 250,
               width: 350,
               child: SimpleBarChart(seriesList: seriesList, animate: true),
             ),

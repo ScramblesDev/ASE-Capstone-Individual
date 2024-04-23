@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'auth.dart'; // Import the auth service
+import 'auth.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -11,8 +11,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String? _email;
   String? _password;
   String? _name;
-  final AuthService _authService =
-      AuthService(); // Create an instance of AuthService
+  final AuthService _authService = AuthService();
 
   void _trySubmitForm() async {
     final isValid = _formKey.currentState?.validate();
@@ -22,11 +21,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
         final user = await _authService.signUpWithEmailAndPassword(
             _email!, _password!, _name!);
         if (user != null) {
-          Navigator.pushReplacementNamed(context,
-              '/login'); // Navigate to login page after successful signup
+          Navigator.pushReplacementNamed(context, '/login');
         }
       } catch (e) {
-        // Display an error message if signup fails
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text(e.toString())));
       }

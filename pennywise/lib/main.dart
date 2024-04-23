@@ -2,20 +2,19 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
 import 'signup.dart';
-import 'firebase_options.dart'; // Import the Firebase options
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Initialize Firebase with platform-specific options
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(MyApp());
 }
 
-// Define a class for your app's colors to organize them better
+//this is just for the colors
 class AppColors {
-  static const Color mintGreen = Color(0xFF3EB489); // Mint green color
+  static const Color mintGreen = Color(0xFF3EB489); //mmm, mint green
 }
 
 class MyApp extends StatelessWidget {
@@ -24,23 +23,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Finance App',
       theme: ThemeData(
-        // Use the mint green as a primary swatch in your app's theme
-        primarySwatch:
-            Colors.green, // Adjust as needed or create a custom swatch
+        primarySwatch: Colors.green,
         primaryColor: AppColors.mintGreen,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor:
-                AppColors.mintGreen, // Use your custom mint color here
+            backgroundColor: AppColors.mintGreen,
           ),
         ),
       ),
       home: MainScreen(),
       routes: {
-        '/login': (context) =>
-            LoginScreen(), // Assuming LoginScreen is in login.dart
-        '/signup': (context) =>
-            SignUpScreen(), // Assuming SignUpScreen is in signup.dart
+        '/login': (context) => LoginScreen(),
+        '/signup': (context) => SignUpScreen(),
       },
     );
   }

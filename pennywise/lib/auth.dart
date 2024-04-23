@@ -15,19 +15,15 @@ class AuthService {
       );
       User? user = userCredential.user;
       if (user != null) {
-        // Initialize overall_amount as 0 for a new user
         int initialOverallAmount = 0;
-        // Create a document in 'users' collection with user's UID
         await _firestore.collection('users').doc(user.uid).set({
           'uid': user.uid,
           'name': name,
           'overall_amount': initialOverallAmount,
         });
-        // Create a corresponding budget_list for the user in 'budget_lists' collection
-        // This creates a new document with the user's UID as the budget_list_ID
         await _firestore.collection('budget_lists').doc(user.uid).set({
           'budget_list_ID': user.uid,
-          'budget_items': [], // Initialize with an empty list of budget items
+          'budget_items': [],
         });
       }
       return user;
@@ -44,7 +40,8 @@ class AuthService {
         email: email,
         password: password,
       );
-      return userCredential.user; // This returns the user
+      //yeag this basically just gives us the user
+      return userCredential.user;
     } on FirebaseAuthException catch (e) {
       throw Exception('Failed to sign in: ${e.message}');
     }
