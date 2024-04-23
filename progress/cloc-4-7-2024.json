@@ -1,0 +1,17 @@
+{
+    "header": {
+        "cloc_url": "http://cloc.sourceforge.net",
+        "cloc_version": "1.82",
+        "elapsed_seconds": 2.9906,
+        "n_files": 2,
+        "n_lines": 50,
+        "files_per_second": 12.9624,
+        "lines_per_second": 294.2248
+    },
+    "Dart": {
+        "nFiles": 2,
+        "blank": 12,
+        "comment": 1,
+        "code": 35
+    }
+}
